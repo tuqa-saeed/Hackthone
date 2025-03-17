@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>User Profile</h1>
+        <div class="form-group">
+            <input type="file" id="profilePic" accept="image/*" class="form-control-file" style="display:none;  ">
+            <button type="button" id="uploadPicBtn" class="btn btn-secondary btn-sm">Upload Picture</button>
+        </div>
+        
+        <section class="profile-section">
+            <img src="profile-placeholder.png" alt="Profile Picture" class="profile-image" id="profileImageDisplay">
+            
+            <div class="profile-info" id="profile-info">
+                <!-- Profile information will be displayed here -->
+                 
+            </div>
+           
+        </section>
+
+       <!--  <section id="activities-section">
+            <h2>Activities</h2>
+            <div id="activities-list">
+                Activities list will be displayed here -->
+            <!-- </div>  -->
+            <!-- <form id="activity-form">
+                <h3>Add Activity</h3>
+                <div class="form-group">
+                    <label for="activityName">Activity Name:</label>
+                    <input type="text" class="form-control" id="activityName" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Activity</button>
+            </form> -->
+        </section>
+
+        <section id="donations-section">
+            <h2>Donations</h2>
+            <div id="donations-list">
+                <!-- Donations list will be displayed here -->
+            </div>
+            <form id="donation-form">
+                <h3>Add Donation</h3>
+                <div class="form-group">
+                    <label for="donationAmount">Donation Amount:</label>
+                    <input type="number" class="form-control" id="donationAmount" required>
+                </div>
+                <div class="form-group">
+                    <label for="donationDate">Donation Date:</label>
+                    <input type="date" class="form-control" id="donationDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="donationCause">Donation Cause:</label>
+                    <input type="text" class="form-control" id="donationCause" required>
+                </div>
+                <button type="submit" class="btn btn-warning">Add Donation</button>
+            </form>
+        </section>
+
+        <section id="edit-profile-section">
+            <h2>Edit Profile</h2>
+            <form id="edit-form">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact">Contact:</label>
+                    <input type="text" class="form-control" id="contact">
+                </div>
+                <button type="submit" class="btn btn-warning ">Update Profile</button>
+                
+            </form>
+        </section>
+
+        <section id="change-password-section">
+            <h2>Change Password</h2>
+            <form id="password-form">
+                <div class="form-group">
+                    <label for="currentPassword">Current Password:</label>
+                    <input type="password" class="form-control" id="currentPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">New Password:</label>
+                    <input type="password" class="form-control" id="newPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm New Password:</label>
+                    <input type="password" class="form-control" id="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-warning">Change Password</button>
+            </form>
+        </section>
+    </div>
+
+    </div>
+
+    <!-- Bootstrap Modal for Alerts -->
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="alertModalLabel">Message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="alertModalBody">
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+    
+    
+</body>
+</html>
