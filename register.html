@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramadan Charity Project Registration</title>
+    
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>  
+    <div class="language-switch">
+            <button id="switch-lang">English</button>
+        </div>
+    <div class="container">
+       <!--  <div class="language-selector">
+            <button onclick="changeLanguage('en')" id="en-btn">English</button>
+            <button onclick="changeLanguage('ar')" id="ar-btn">العربية</button>
+        </div> -->
+      
+
+        <div class="form-header">
+            <h1 id="form-title">Ramadan Charity Project Registration</h1>
+            <p id="form-subtitle">Join us in making a difference this Ramadan</p>
+        </div>
+        
+        <div id="success-message" class="success-message">
+            Registration successful! Thank you for joining our Ramadan charity project.
+        </div>
+        
+        <form id="registration-form" onsubmit="return validateForm()">
+            <div class="form-section">
+                <h2 id="personal-info-title">Personal Information</h2>
+                
+                <div class="form-group">
+                    <label for="fullName" id="name-label">Full Name</label>
+                    <input type="text" id="fullName" class="form-control" required>
+                    <div class="error-message" id="fullName-error">Please enter your full name</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" id="email-label">Email Address</label>
+                    <input type="email" id="email" class="form-control" required>
+                    <div class="error-message" id="email-error">Please enter a valid email address</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" id="password-label">Password</label>
+                    <input type="password" id="password" class="form-control" required>
+                    <div class="error-message" id="password-error">Password must be at least 8 characters with numbers and special characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword" id="confirm-password-label">Confirm Password</label>
+                    <input type="password" id="confirmPassword" class="form-control" required>
+                    <div class="error-message" id="confirmPassword-error">Passwords do not match</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone" id="phone-label">Phone Number</label>
+                    <input type="tel" id="phone" class="form-control" required>
+                    <div class="error-message" id="phone-error">Please enter a valid phone number</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dob" id="dob-label">Date of Birth (Optional)</label>
+                    <input type="date" id="dob" class="form-control">
+                </div>
+            </div>
+        
+      <!--           <div class="form-group">
+                    <label for="preferredLanguage" id="language-label">Preferred Language</label>
+                    <select id="preferredLanguage" class="form-control" required>
+                        <option value="">Select Language</option>
+                        <option value="arabic">Arabic</option>
+                        <option value="english">English</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div> -->
+                
+              
+            
+            <button type="submit" class="btn btn-block" id="submit-btn">Register</button>
+
+                <p id="login-page">
+                هل انت متأكد من انك تريد تسجيل الدخول� <a href="login.html">تسجيل الدخول</a>
+                </p>
+             
+           
+        </form>
+    </div>
+    
+    <script>
+        // Form validation
+        function validateForm() {
+            let isValid = true;
+            
+            // Reset all error messages
+            const errorMessages = document.querySelectorAll('.error-message');
+            errorMessages.forEach(msg => msg.style.display = 'none');
+            
+            // Validate full name
+            const fullName = document.getElementById('fullName').value.trim();
+            if (fullName === '') {
+                document.getElementById('fullName-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate email
+            const email = document.getElementById('email').value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('email-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate password
+            const password = document.getElementById('password').value;
+            const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+            if (!passwordRegex.test(password)) {
+                document.getElementById('password-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate confirm password
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            if (password !== confirmPassword) {
+                document.getElementById('confirmPassword-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate phone
+            const phone = document.getElementById('phone').value.trim();
+            const phoneRegex = /^\+?[0-9]{10,15}$/;
+            if (!phoneRegex.test(phone)) {
+                document.getElementById('phone-error').style.display = 'block';
+                isValid = false;
+            }
+            
+          
+            
+            
+            // If form is valid, show success message
+            if (isValid) {
+                document.getElementById('success-message').style.display = 'block';
+                document.getElementById('registration-form').reset();
+                // In a real application, you would submit the form data to a server here
+                // For this example, we're just showing a success message
+                window.scrollTo(0, 0);
+                return false; // Prevent form submission for this example
+            }
+            
+            return false; // Prevent actual form submission
+        }
+        
+        // Language switcher
+  // Language switcher
+let currentLang = "en"; // تغيير القيمة الابتدائية إلى "en"
+document.getElementById("switch-lang").addEventListener("click", function () {
+    if (currentLang === "en") {
+        // التحويل من الإنجليزية إلى العربية
+        document.documentElement.lang = "ar";
+        document.body.style.direction = "rtl";
+        document.getElementById('form-title').textContent = 'التسجيل في مشروع الأعمال الخيرية الرمضانية';
+        document.getElementById('form-subtitle').textContent = 'انضم إلينا لإحداث فرق هذا الرمضان';
+        document.getElementById('personal-info-title').textContent = 'المعلومات الشخصية';
+        document.getElementById('name-label').textContent = 'الاسم الكامل';
+        document.getElementById('email-label').textContent = 'البريد الإلكتروني';
+        document.getElementById('password-label').textContent = 'كلمة المرور';
+        document.getElementById('confirm-password-label').textContent = 'تأكيد كلمة المرور';
+        document.getElementById('phone-label').textContent = 'رقم الهاتف';
+        document.getElementById('dob-label').textContent = 'تاريخ الميلاد (اختياري)';
+        document.getElementById('submit-btn').textContent = 'تسجيل';
+        document.getElementById('login-page').innerHTML = 'هل لديك حساب بالفعل؟ <a href="login.html">تسجيل الدخول</a>';
+        document.getElementById('success-message').textContent = 'تم التسجيل بنجاح! شكرا لانضمامك إلى مشروع الأعمال الخيرية الرمضانية.';
+        
+        // تحديث رسائل الخطأ
+        document.getElementById('fullName-error').textContent = 'الرجاء إدخال الاسم الكامل';
+        document.getElementById('email-error').textContent = 'الرجاء إدخال بريد إلكتروني صالح';
+        document.getElementById('password-error').textContent = 'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل مع أرقام وأحرف خاصة';
+        document.getElementById('confirmPassword-error').textContent = 'كلمات المرور غير متطابقة';
+        document.getElementById('phone-error').textContent = 'الرجاء إدخال رقم هاتف صالح';
+        
+        // تغيير نص زر تبديل اللغة
+        document.getElementById("switch-lang").textContent = "English";
+        
+        currentLang = "ar";
+    } else {
+        // التحويل من العربية إلى الإنجليزية
+        document.documentElement.lang = "en";
+        document.body.style.direction = "ltr";
+        
+        // إعادة تعيين المحتوى النصي إلى الإنجليزية
+        document.getElementById('form-title').textContent = 'Ramadan Charity Project Registration';
+        document.getElementById('form-subtitle').textContent = 'Join us in making a difference this Ramadan';
+        document.getElementById('personal-info-title').textContent = 'Personal Information';
+        document.getElementById('name-label').textContent = 'Full Name';
+        document.getElementById('email-label').textContent = 'Email Address';
+        document.getElementById('password-label').textContent = 'Password';
+        document.getElementById('confirm-password-label').textContent = 'Confirm Password';
+        document.getElementById('phone-label').textContent = 'Phone Number';
+        document.getElementById('dob-label').textContent = 'Date of Birth (Optional)';
+        document.getElementById('submit-btn').textContent = 'Register';
+        document.getElementById('login-page').innerHTML = 'Already have an account? <a href="login.html">Login</a>';
+        document.getElementById('success-message').textContent = 'Registration successful! Thank you for joining our Ramadan charity project.';
+        
+        // إعادة تعيين رسائل الخطأ
+        document.getElementById('fullName-error').textContent = 'Please enter your full name';
+        document.getElementById('email-error').textContent = 'Please enter a valid email address';
+        document.getElementById('password-error').textContent = 'Password must be at least 8 characters with numbers and special characters';
+        document.getElementById('confirmPassword-error').textContent = 'Passwords do not match';
+        document.getElementById('phone-error').textContent = 'Please enter a valid phone number';
+        
+        // تغيير نص زر تبديل اللغة
+        document.getElementById("switch-lang").textContent = "العربية";
+        
+        currentLang = "en";
+    }
+});
+        
+document.getElementById('login-page').innerHTML = 'هل لديك حساب بالفعل؟ <a href="login.html">تسجيل الدخول</a>';
+
+document.getElementById('login-page').innerHTML = 'Already have an account? <a href="login.html">Login</a>';
+    
+        // Function to save form data (in a real application, this would send data to a server)
+        /* function saveFormData() {
+            // Collect form data
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                dob: document.getElementById('dob').value,
+             
+                contactMethod: document.querySelector('input[name="contactMethod"]:checked').value,
+                interests: Array.from(document.querySelectorAll('input[name="interests"]:checked')).map(el => el.value),
+                notifications: document.getElementById('notifications').checked
+            };
+            
+            // In a real application, you would send this data to your server
+            console.log('Form data collected:', formData);
+            
+            // You could use fetch API to send data to server:
+           
+            fetch('https://your-api-endpoint.com/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                // Show success message
+                document.getElementById('success-message').style.display = 'block';
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                // Show error message
+            });
+            
+        }*/
+        // Add this function to save form data to local storage
+        function saveToLocalStorage() {
+    // جمع بيانات النموذج
+    const formData = {
+        fullName: document.getElementById('fullName').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        password: document.getElementById('password').value, // تخزين كلمة المرور للتحقق لاحقًا
+        phone: document.getElementById('phone').value.trim(),
+        dob: document.getElementById('dob').value,
+        registrationDate: new Date().toISOString() // تخزين تاريخ التسجيل
+    };
+    
+    // الحصول على مصفوفة التسجيلات الموجودة من localStorage أو إنشاء مصفوفة جديدة
+    let registrations = JSON.parse(localStorage.getItem('ramadanRegistrations')) || [];
+    
+    // التحقق مما إذا كان البريد الإلكتروني مستخدمًا من قبل
+    const existingUser = registrations.find(user => user.email === formData.email);
+    if (existingUser) {
+        alert('هذا البريد الإلكتروني مستخدم بالفعل. الرجاء استخدام بريد إلكتروني آخر.');
+        return false;
+    }
+    
+    // إضافة تسجيل جديد إلى المصفوفة
+    registrations.push(formData);
+    
+    // حفظ المصفوفة المحدثة في localStorage
+    localStorage.setItem('ramadanRegistrations', JSON.stringify(registrations));
+    
+    console.log('تم حفظ البيانات في localStorage:', formData);
+    return true;
+}
+
+// تعديل وظيفة التحقق من صحة النموذج لحفظ البيانات عند التحقق
+    function validateForm() {
+        let isValid = true;
+        
+        // إعادة تعيين جميع رسائل الخطأ
+        const errorMessages = document.querySelectorAll('.error-message');
+        errorMessages.forEach(msg => msg.style.display = 'none');
+        
+        // التحقق من صحة الاسم الكامل
+        const fullName = document.getElementById('fullName').value.trim();
+        if (fullName === '') {
+            document.getElementById('fullName-error').style.display = 'block';
+            isValid = false;
+        }
+        
+        // التحقق من صحة البريد الإلكتروني
+        const email = document.getElementById('email').value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            document.getElementById('email-error').style.display = 'block';
+            isValid = false;
+        }
+        
+        // التحقق من صحة كلمة المرور
+        const password = document.getElementById('password').value;
+        const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+        if (!passwordRegex.test(password)) {
+            document.getElementById('password-error').style.display = 'block';
+            isValid = false;
+        }
+        
+        // التحقق من تطابق كلمة المرور
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        if (password !== confirmPassword) {
+            document.getElementById('confirmPassword-error').style.display = 'block';
+            isValid = false;
+        }
+        
+        // التحقق من صحة رقم الهاتف
+        const phone = document.getElementById('phone').value.trim();
+        const phoneRegex = /^\+?[0-9]{10,15}$/;
+        if (!phoneRegex.test(phone)) {
+            document.getElementById('phone-error').style.display = 'block';
+            isValid = false;
+        }
+        
+        // إذا كان النموذج صالحًا، حفظ البيانات وعرض رسالة النجاح
+        if (isValid) {
+            if (saveToLocalStorage()) {
+                document.getElementById('success-message').style.display = 'block';
+                document.getElementById('registration-form').reset();
+                window.scrollTo(0, 0);
+                
+                // التوجيه إلى صفحة تسجيل الدخول بعد نجاح التسجيل
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+            }
+        }
+        
+        return false; // منع إرسال النموذج
+    }
+
+    // إضافة وظيفة لعرض البيانات المسجلة
+    function showSavedRegistrations() {
+        const registrations = JSON.parse(localStorage.getItem('ramadanRegistrations')) || [];
+        console.log('التسجيلات المحفوظة:', registrations);
+        return registrations;
+    }
+
+    // إضافة وظيفة لمسح جميع التسجيلات المحفوظة
+    function clearSavedRegistrations() {
+        localStorage.removeItem('ramadanRegistrations');
+        console.log('تم مسح جميع التسجيلات المحفوظة');
+    }
+        // Initialize the page with correct language based on browser settings
+        document.addEventListener('DOMContentLoaded', function() {
+            const userLang = navigator.language || navigator.userLanguage;
+            if (userLang.startsWith('ar')) {
+                changeLanguage('ar');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramadan Charity Project Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="language-switch">
+        <button id="switch-lang">English</button>
+    </div>
+    
+    <div class="container">
+        <div class="form-header">
+            <h1 id="form-title">Ramadan Charity Project Login</h1>
+            <p id="form-subtitle">Welcome back to our Ramadan charity community</p>
+        </div>
+        
+        <div id="success-message" class="success-message">
+            Login successful! Redirecting to your dashboard...
+        </div>
+        
+        <div id="error-message" class="error-message" style="display: none; margin-bottom: 15px;">
+            Invalid email or password. Please try again.
+        </div>
+        
+        <form id="login-form" onsubmit="return validateAndLogin()">
+            <div class="form-group">
+                <label for="email" id="email-label">Email Address</label>
+                <input type="email" id="email" class="form-control" required>
+                <div class="error-message" id="email-error">Please enter a valid email address</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password" id="password-label">Password</label>
+                <input type="password" id="password" class="form-control" required>
+                <div class="error-message" id="password-error">Please enter your password</div>
+            </div>
+            
+            <button type="submit" class="btn btn-block" id="submit-btn">Login</button>
+            
+            <div class="register-link">
+                <p id="register-text">Don't have an account? <a href="register.html" id="register-link">Register here</a></p>
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        // Form validation and login logic
+    function validateAndLogin() {
+    let isValid = true;
+    
+    const errorMessages = document.querySelectorAll('.error-message');
+    errorMessages.forEach(msg => msg.style.display = 'none');
+    document.getElementById('error-message').style.display = 'none';
+    
+    const email = document.getElementById('email').value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        document.getElementById('email-error').style.display = 'block';
+        isValid = false;
+    }
+    
+    const password = document.getElementById('password').value;
+    if (password === '') {
+        document.getElementById('password-error').style.display = 'block';
+        isValid = false;
+    }
+    
+    if (isValid) {
+        const users = JSON.parse(localStorage.getItem('ramadanRegistrations')) || [];
+        
+        const user = users.find(u => u.email === email && u.password === password);
+        
+        if (user) {
+            document.getElementById('success-message').style.display = 'block';
+            
+            localStorage.setItem('currentUser', JSON.stringify({
+                email: user.email,
+                fullName: user.fullName,
+                phone: user.phone,
+                isLoggedIn: true
+            }));
+            
+            document.getElementById('login-form').reset();
+            
+            setTimeout(() => {
+                window.location.href = 'user-profile-system/index.html';
+            }, 2000);
+        } else {
+            document.getElementById('error-message').style.display = 'block';
+        }
+    }
+    
+    return false; 
+}
+
+function showStoredData() {
+    const registrations = JSON.parse(localStorage.getItem('ramadanRegistrations')) || [];
+    console.log('بيانات المستخدمين المسجلين:', registrations);
+    
+    const currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+    console.log('بيانات المستخدم الحالي:', currentUser);
+    
+    return { registrations, currentUser };
+}
+
+
+        
+        // Language switcher
+        let currentLang = "en";
+        document.getElementById("switch-lang").addEventListener("click", function () {
+            if (currentLang === "en") {
+                // Switch to Arabic
+                document.documentElement.lang = "ar";
+                document.body.style.direction = "rtl";
+                document.getElementById('form-title').textContent = 'تسجيل الدخول لمشروع الأعمال الخيرية الرمضانية';
+                document.getElementById('form-subtitle').textContent = 'مرحبًا بعودتك إلى مجتمع الأعمال الخيرية الرمضانية';
+                document.getElementById('email-label').textContent = 'البريد الإلكتروني';
+                document.getElementById('password-label').textContent = 'كلمة المرور';
+                document.getElementById('submit-btn').textContent = 'تسجيل الدخول';
+                document.getElementById('register-text').innerHTML = 'ليس لديك حساب؟ <a href="index.html" id="register-link">سجل هنا</a>';
+                document.getElementById('success-message').textContent = 'تم تسجيل الدخول بنجاح! جاري تحويلك إلى لوحة التحكم...';
+                document.getElementById('error-message').textContent = 'البريد الإلكتروني أو كلمة المرور غير صحيحة. يرجى المحاولة مرة أخرى.';
+                
+                // Update error messages
+                document.getElementById('email-error').textContent = 'الرجاء إدخال بريد إلكتروني صالح';
+                document.getElementById('password-error').textContent = 'الرجاء إدخال كلمة المرور';
+                
+                // Change language button text
+                document.getElementById("switch-lang").textContent = "English";
+                
+                currentLang = "ar";
+            } else {
+                // Switch to English
+                document.documentElement.lang = "en";
+                document.body.style.direction = "ltr";
+                
+                // Reset text content to English
+                document.getElementById('form-title').textContent = 'Ramadan Charity Project Login';
+                document.getElementById('form-subtitle').textContent = 'Welcome back to our Ramadan charity community';
+                document.getElementById('email-label').textContent = 'Email Address';
+                document.getElementById('password-label').textContent = 'Password';
+                document.getElementById('submit-btn').textContent = 'Login';
+                document.getElementById('register-text').innerHTML = 'Don\'t have an account? <a href="index.html" id="register-link">Register here</a>';
+                document.getElementById('success-message').textContent = 'Login successful! Redirecting to your dashboard...';
+                document.getElementById('error-message').textContent = 'Invalid email or password. Please try again.';
+                
+                // Reset error messages
+                document.getElementById('email-error').textContent = 'Please enter a valid email address';
+                document.getElementById('password-error').textContent = 'Please enter your password';
+                
+                // Change language button text
+                document.getElementById("switch-lang").textContent = "العربية";
+                
+                currentLang = "en";
+            }
+        });
+        
+        // Check if user is already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser && currentUser.isLoggedIn) {
+                // User is already logged in, redirect to dashboard
+                window.location.href = 'user-profile-system/index.html';
+            }
+            
+            // Check browser language setting
+            const userLang = navigator.language || navigator.userLanguage;
+            if (userLang.startsWith('ar')) {
+                // Trigger Arabic language
+                document.getElementById("switch-lang").click();
+            }
+        });
+    </script>
+</body>
+</html>
